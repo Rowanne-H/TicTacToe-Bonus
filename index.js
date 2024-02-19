@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
-    let startBtn = document.querySelector('#start');
+    let onePlayerBtn = document.querySelector('#one-player');
+    let twoPlayerBtn = document.querySelector('#two-player');
     let resetBtn = document.querySelector('#reset');
     let playAgainBtn = document.querySelector('#playAgain');
     let grid = document.querySelectorAll('#grid');
@@ -64,8 +65,12 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     
 
-    startBtn.addEventListener('click', ()=>{
+    onePlayerBtn.addEventListener('click', ()=>{
         alert('start')
+    })
+
+    twoPlayerBtn.addEventListener('click', ()=>{
+        alert('two')
     })
 
     resetBtn.addEventListener('click', ()=>{
