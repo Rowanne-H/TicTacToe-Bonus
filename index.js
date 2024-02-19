@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     let addScore = (player) => {
         let scoreDisplay = scoreDisplay1;
-        if (player === 'playerX') { scoreDisplay = scoreDisplay2}
+        if (player === 'O') { scoreDisplay = scoreDisplay2}
         let score = parseInt(scoreDisplay.innerHTML);
         score+=10;
         scoreDisplay.innerHTML = score;
