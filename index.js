@@ -7,10 +7,13 @@ document.addEventListener('DOMContentLoaded', () => {
     let grids = document.querySelectorAll('#grid>div');
     let scoreDisplay1 = document.querySelector('#player1-score');
     let scoreDisplay2 = document.querySelector('#player2-score');
+    let gameOn = false;
+    let computer = false;
 
     let displayWinnerOrDraw = (player) => {
         let displayWinner = document.querySelector('#result');
         displayResult.style.zIndex = '1';
+        gameOn = false;
         if(player) {
             displayWinner.innerHTML = `${player} wins!!!`
         } else {
@@ -49,39 +52,60 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
     const gridClicked = function(e){
-        let index = e.target.id
-        if(!playerMove[index]){
-            playerMove[index] = currentPlayer;
-            e.target.innerText = currentPlayer;
-            if(winningCheck() == true){
-                addScore(currentPlayer) 
-                setTimeout(() => displayWinnerOrDraw(currentPlayer), 100);   
-        }
-        setTimeout(() => {currentPlayer = currentPlayer === playerX ? playerO : playerX}, 100)
-        }
-        if(playerMove.includes('')===false) {
-            setTimeout(() => displayWinnerOrDraw(), 100);  
+        if (gameOn === true) {
+            let index = e.target.id
+            if(!playerMove[index]){
+                playerMove[index] = currentPlayer;
+                e.target.innerText = currentPlayer;
+                if(winningCheck() === true){
+                    addScore(currentPlayer) 
+                    displayWinnerOrDraw(currentPlayer);
+                } else if (playerMove.includes('')===false) {
+                    displayWinnerOrDraw();  
+                } else {
+                    currentPlayer = currentPlayer === playerX ? playerO : playerX
+                }                            
+            }
+            
         }
     }
     
 
     onePlayerBtn.addEventListener('click', ()=>{
-        alert('start')
+        if (gameOn === false) {
+            gameOn = true;
+        }
+        computer = true;
     })
 
     twoPlayerBtn.addEventListener('click', ()=>{
-        alert('two')
+        if (gameOn === false) {
+            gameOn = true;
+        }
     })
+
+    const clearGrid = () => {
+        displayResult.style.zIndex = '-1';
+        grids.forEach(grid => {
+            grid.innerHTML = '';
+        })
+        playerMove =['','','','','','','','','']
+    }
 
     resetBtn.addEventListener('click', ()=>{
         alert('reset')
     })
 
+    
+
     playAgainBtn.addEventListener('click', ()=>{
-        alert('playAgain')
+        gameOn = true;
+        displayResult.style.zIndex = '-1';
+        clearGrid();
     })
+
     grids.forEach(grid => {
-      grid.addEventListener('click', gridClicked, {once: true})
+      grid.addEventListener('click', gridClicked)
     })
 })
 
