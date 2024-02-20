@@ -44,6 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
         [0,4,8],
         [2,4,6]
     ]
+
     const winningCheck = function (){
         for (const condition of winningCombinations){
             let [a,b,c] = condition
@@ -52,6 +53,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
     }
+
     const gridClicked = function(e){
         if (gameOn === true) {
             let index = e.target.id
@@ -64,6 +66,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 } else if (playerMove.includes('')===false) {
                     displayWinnerOrDraw();  
                 } else {
+                    if (computer === true) {
+                        gameOn = false;
+                        alert('wait for computer to move')
+                    }
                     currentPlayer = currentPlayer === playerX ? playerO : playerX
                 }                            
             }
@@ -73,7 +79,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
 
     onePlayerBtn.addEventListener('click', ()=>{
-        if (gameOn === false) {
+        if (gameOn === false && computer === false) {
             gameOn = true;
             computer = true;
             player2.innerHTML = 'Computer  ';
@@ -81,7 +87,7 @@ document.addEventListener('DOMContentLoaded', () => {
     })
 
     twoPlayerBtn.addEventListener('click', ()=>{
-        if (gameOn === false) {
+        if (gameOn === false && computer === false) {
             gameOn = true;
         } 
     })
