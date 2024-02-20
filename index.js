@@ -104,6 +104,7 @@ document.addEventListener('DOMContentLoaded', () => {
         clearGrid();
     })
 
+
     grids.forEach(grid => {
       grid.addEventListener('click', gridClicked)
     })
