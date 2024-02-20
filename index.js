@@ -93,7 +93,12 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     resetBtn.addEventListener('click', ()=>{
-        alert('reset')
+        clearGrid();
+        scoreDisplay1.innerHTML = 0;
+        scoreDisplay2.innerHTML = 0;
+        gameOn = false;
+        computer = false;
+
     })
 
     
