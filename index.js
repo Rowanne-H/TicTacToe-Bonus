@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let grids = document.querySelectorAll('#grid>div');
     let scoreDisplay1 = document.querySelector('#player1-score');
     let scoreDisplay2 = document.querySelector('#player2-score');
+    let player2 = document.querySelector('#player2');
     let gameOn = false;
     let computer = false;
 
@@ -74,14 +75,15 @@ document.addEventListener('DOMContentLoaded', () => {
     onePlayerBtn.addEventListener('click', ()=>{
         if (gameOn === false) {
             gameOn = true;
-        }
-        computer = true;
+            computer = true;
+            player2.innerHTML = 'Computer  ';
+        } 
     })
 
     twoPlayerBtn.addEventListener('click', ()=>{
         if (gameOn === false) {
             gameOn = true;
-        }
+        } 
     })
 
     const clearGrid = () => {
@@ -98,14 +100,12 @@ document.addEventListener('DOMContentLoaded', () => {
         scoreDisplay2.innerHTML = 0;
         gameOn = false;
         computer = false;
-
     })
 
     
 
     playAgainBtn.addEventListener('click', ()=>{
         gameOn = true;
-        displayResult.style.zIndex = '-1';
         clearGrid();
     })
 
