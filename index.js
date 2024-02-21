@@ -148,8 +148,12 @@ document.addEventListener('DOMContentLoaded', () => {
             placeO(iToUse);
         } 
 
-
         gameOn = true;
+
+        if(playerMove.includes('')===false) {
+            displayWinnerOrDraw(); 
+        }
+        
         if(displayResult.style.zIndex === '1') {
             currentPlayer = 'O';
             player1.style.color = '';
