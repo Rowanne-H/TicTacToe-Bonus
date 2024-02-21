@@ -69,22 +69,26 @@ document.addEventListener('DOMContentLoaded', () => {
         grid.innerHTML = placeOHTML(playerMove);
         document.querySelectorAll('#grid>div').forEach(grid => {
             grid.addEventListener('click', gridClicked)
-          });
+        });
         console.log('placeO')
     }
 
     const checkAndPlaceO = () => {
+        let count;
+        let iToUse;
+
 
         //if there are 2 'O', place O in the index of ''
         for (let i=0; i<winningCombinations.length; i++) {
-            let count = 0;
-            let iToUse;
+            count = 0;
+                iToUse = -1;
             for (let j=0; j< winningCombinations[i].length; j++) {
                 let index = winningCombinations[i][j];
                 if (playerMove[index] === 'O') {count++}
-                if (playerMove[index] === '') {iToUse = index;}              
+                if (playerMove[index] === '') {iToUse = index}             
             }
-            if (count === 2 && iToUse) {
+            console.log(count+ '   '+iToUse)
+            if (count === 2 && iToUse != false) {
                 placeO(iToUse);
                 displayWinnerOrDraw('O');          
                 break; 
@@ -93,18 +97,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
         //if there are 2 'X', place O in the index of ''
         for (let i=0; i<winningCombinations.length; i++) {
-            let count = 0;
-            let iToUse;
+            console.log(winningCombinations[i])
+            count = 0;
+            iToUse = -1;
             for (let j=0; j< winningCombinations[i].length; j++) {
                 let index = winningCombinations[i][j];
                 if (playerMove[index] === 'X') {count++}
-                if (playerMove[index] === '') {iToUse = index;}              
+                if (playerMove[index] === '') {iToUse = index;} 
+                console.log('inside'+count+ '   '+iToUse)              
             }
-            if (count === 2 && iToUse) {
+            if (count === 2 && iToUse != -1) {
                 placeO(iToUse)           
                 break; 
             }   
         }
+
+        
 
         
 
