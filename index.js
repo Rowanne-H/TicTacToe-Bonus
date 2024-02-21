@@ -167,8 +167,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 } else {
                     if (computer === 'O') {                        
                         gameOn = false;
-                        computerTurn(); 
-                        console.log(gameOn+'  '+playerMove)                 
+                        setTimeout(computerTurn, 500);                 
                     } else {
                         currentPlayer = currentPlayer === 'X'? 'O' : 'X';
                     }                    
@@ -211,12 +210,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
     
     playAgainBtn.addEventListener('click', ()=>{
-        gameOn = true;
         clearGrid();
-        if (currentPlayer === 'O' && computer === 'O') {
-            setTimeout(() =>placeO, 500, 4)
-        }
-        startGridClickEvent();
+        setTimeout(() => {
+            if (currentPlayer === 'O' && computer === 'O') {
+                setTimeout(placeO, 500, 4);
+                currentPlayer = 'X';
+            } 
+            gameOn = true;
+            startGridClickEvent();
+        }, 500)        
     })
 
     
