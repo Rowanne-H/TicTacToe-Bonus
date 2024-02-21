@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let grid = document.querySelector('#grid');
     let scoreDisplay1 = document.querySelector('#player1-score');
     let scoreDisplay2 = document.querySelector('#player2-score');
+    let player1 = document.querySelector('#player1');
     let player2 = document.querySelector('#player2');
     let gameOn = false;
     let computer = false;
@@ -73,8 +74,6 @@ document.addEventListener('DOMContentLoaded', () => {
         grid.innerHTML = '';
         grid.innerHTML = placeOHTML(playerMove);
         startGridClickEvent();
-        console.log(playerMove)
-        console.log('placeO')
     }
 
     const computerTurn = () => {
@@ -134,7 +133,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (playerMove[index] === '') {iToUse = index;}              
                 }
                 if (count === 1 && countX === 0 && iToUse != -1) {
-                    console.log('1X'+iToUse);
                     placeO(iToUse); 
                     checkAgain = false;          
                     break; 
@@ -154,8 +152,12 @@ document.addEventListener('DOMContentLoaded', () => {
         gameOn = true;
         if(displayResult.style.zIndex === '1') {
             currentPlayer = 'O';
+            player1.style.color = '';
+            player2.style.color = 'green';
         } else {
             currentPlayer = 'X';
+            player2.style.color = '';
+            player1.style.color = 'green';
         }
     } 
 
@@ -172,9 +174,18 @@ document.addEventListener('DOMContentLoaded', () => {
                 } else {
                     if (computer === 'O') {                        
                         gameOn = false;
+                        player2.style.color = 'green';
                         setTimeout(computerTurn, 500);                 
                     } else {
-                        currentPlayer = currentPlayer === 'X'? 'O' : 'X';
+                        if (currentPlayer === 'X') {
+                            currentPlayer = 'O';
+                            player1.style.color = '';
+                            player2.style.color = 'green';
+                        } else {
+                            currentPlayer = 'X';
+                            player1.style.color = 'green';
+                            player2.style.color = '';
+                        }
                     }                    
                 }                            
             }
@@ -188,13 +199,16 @@ document.addEventListener('DOMContentLoaded', () => {
             gameOn = true;
             computer = 'O';
             player2.innerHTML = 'Computer  ';
+            player1.style.color = 'green';
         } 
     })
 
     twoPlayerBtn.addEventListener('click', ()=>{
         if (gameOn === false && computer === false) {
             gameOn = true;
+            player1.style.color = 'green';
         } 
+        
     })
 
     const clearGrid = () => {
@@ -218,8 +232,10 @@ document.addEventListener('DOMContentLoaded', () => {
         clearGrid();
         setTimeout(() => {
             if (currentPlayer === 'O' && computer === 'O') {
-                setTimeout(placeO, 500, 4);
+                placeO(4);
                 currentPlayer = 'X';
+                player2.style.color = '';
+                player1.style.color = 'green';
             } 
             gameOn = true;
             startGridClickEvent();

@@ -1,7 +1,26 @@
 body {
     background-color: lightblue;
     text-align: center;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-weight: bolder;
+    font-size: large;
 }
+
+#player-score {
+    width: 450px;
+    margin: auto;
+}
+
+.player1 {
+    float: left;
+    padding-left:10px;       
+}
+
+.player2 {
+    float: right;
+    padding-right:10px;
+}
+
 #container {
     background-color: red;
     width: 450px;
