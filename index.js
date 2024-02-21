@@ -59,8 +59,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    
-
     const placeO = (i) => {
         const placeOHTML = (playerMove) => {
             let text = '';
