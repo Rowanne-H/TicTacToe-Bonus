@@ -120,18 +120,20 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
-        //if there are 1 'O', place O in the second index of ''
+        //if there are 1 'O' and no 'X', place O in the second index of ''
         if (checkAgain === true) {
             for (let i=0; i<winningCombinations.length; i++) {
                 console.log(winningCombinations[i])
                 count = 0;
                 iToUse = -1;
+                let countX = 0;
                 for (let j=0; j< winningCombinations[i].length; j++) {
                     let index = winningCombinations[i][j];
                     if (playerMove[index] === 'O') {count++}
+                    if (playerMove[index] === 'X') {countX++}
                     if (playerMove[index] === '') {iToUse = index;}              
                 }
-                if (count === 1 && iToUse != -1) {
+                if (count === 1 && countX === 0 && iToUse != -1) {
                     console.log('1X'+iToUse);
                     placeO(iToUse); 
                     checkAgain = false;          
