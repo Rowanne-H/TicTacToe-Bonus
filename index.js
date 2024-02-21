@@ -79,7 +79,6 @@ document.addEventListener('DOMContentLoaded', () => {
         let iToUse;
         let checkAgain = true;       
 
-
         //if there are 2 'O', place O in the index of ''
         for (let i=0; i<winningCombinations.length; i++) {
             count = 0;
@@ -142,14 +141,14 @@ document.addEventListener('DOMContentLoaded', () => {
         if (checkAgain === true) {
             iToUse = playerMove.indexOf('');
             placeO(iToUse);
+        }  
+        gameOn = true;
+        
+        if(displayResult.style.zIndex === '1') {
+            currentPlayer = 'O';
+        } else {
+            currentPlayer = 'X';
         }
-        
-
-        
-
-        
-
-
     } 
 
     const gridClicked = function(e){
@@ -166,8 +165,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (computer === 'O') {                        
                         gameOn = false;
                         checkAndPlaceO(); 
-                        gameOn = true;
-                        currentPlayer = 'X';  
                         console.log(gameOn+'  '+playerMove)                 
                     } else {
                         currentPlayer = currentPlayer === 'X'? 'O' : 'X';
@@ -215,7 +212,7 @@ document.addEventListener('DOMContentLoaded', () => {
         clearGrid();
         document.querySelectorAll('#grid>div').forEach(grid => {
             grid.addEventListener('click', gridClicked)
-          });
+        });
     })
 
     grids.forEach(grid => {
