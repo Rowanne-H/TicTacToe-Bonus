@@ -142,9 +142,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
         //if there is no 'O', place O in the second index of ''
         if (checkAgain === true) {
-            iToUse = playerMove.indexOf('');
+            if (playerMove[4] === '') {iToUse = 4} else {
+                iToUse = playerMove.indexOf('');
+            }    
             placeO(iToUse);
-        }  
+        } 
+
 
         gameOn = true;
         if(displayResult.style.zIndex === '1') {
