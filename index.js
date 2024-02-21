@@ -16,7 +16,8 @@ document.addEventListener('DOMContentLoaded', () => {
         displayResult.style.zIndex = '1';
         gameOn = false;
         if(player) {
-            displayWinner.innerHTML = `${player} wins!!!`
+            displayWinner.innerHTML = `${player} wins!!!`;
+            addScore(player);
         } else {
             displayWinner.innerHTML = `Draw!!!`
         }     
@@ -31,9 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   
     let playerMove = ['','','','','','','','','']
-    const playerX = "X";
-    const playerO = "O";
-    let currentPlayer = playerX;
+    let currentPlayer = 'X';
     let winningCombinations = [
         [0,1,2],
         [3,4,5],
@@ -54,63 +53,47 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    //is there a simpler way to place 'O' instead of rebuilt the innerHtml
-    const givenIndexPlaceO = (combinations) => {
+    const placeOHTML = (playerMove) => {
         let text = '';
         // loop the first three combinations [012][345][678] to cover all grids
-        for (let i=0; i<3; i++) {
-            for (let j=0; j<3; j++) {
-                let e = combinations[i][j]
-                console.log(e)
-                text += `
-                <div id="${e.index}">${e.val}</div>
-                `
-            }
-        }        
+        for (let i=0; i<9; i++) {
+            text += `
+            <div id="${i}">${playerMove[i]}</div>
+            `
+        }
         return text;
     }
- 
-    const placeO = () => {
-        //get all winning combinations's patterns
-        let combinations = winningCombinations.map((condition) => {
-            return condition.map((val, i) => {
-                return ({index: val, val: playerMove[val]})
-            })
-        })
-        let secPlace = [];
-        let thiPlace = [];
-        combinations.forEach(c => {
-            
-            //if there are 2 'O', place O in the third index
-            if (c.filter(e => e.val === 'O').length === 2) {
-                playerMove[c.find(e => e.val === '').index] = computer;
-                return
-            }
-            if (c.filter(e => e.val === 'X').length === 2) {
-                // let i = c.find(e => e.val === '').index;
-                // console.log(i);
-                // playerMove[i] = 'O'
-                // Cannot read properties of undefined (reading 'index')at index.js:85:50
-                let targetE = c.find(e => e.val === '')
-                targetE.val = 'O';
-                playerMove[targetE.index] = 'O'
 
-    
-                console.log(givenIndexPlaceO(combinations))
-                scoreDisplay1.innerHTML = 10;
-                grid.innerHTML = '';
-                grid.innerHTML = givenIndexPlaceO(combinations);
-                
-                
-            }
-        })
-        
-        //let index = 0;
-        //let betterPlaceGrids = [];
-        
-        gameOn = true;
-        currentPlayer = playerX;
+    const placeO = (i) => {
+        playerMove[i] = 'O';
+        grid.innerHTML = '';
+        grid.innerHTML = placeOHTML(playerMove);
+        document.querySelectorAll('#grid>div').forEach(grid => {
+            grid.addEventListener('click', gridClicked)
+          });
+        console.log('placeO')
     }
+
+    const checkAndPlaceO = () => {
+
+        
+        //if there are 2 'X', place O in the index of ''
+        for (let i=0; i<winningCombinations.length; i++) {
+            let count = 0;
+            let iToUse;
+            for (let j=0; j< winningCombinations[i].length; j++) {
+                let index = winningCombinations[i][j];
+                if (playerMove[index] === 'X') {count++}
+                if (playerMove[index] === '') {iToUse = index;}              
+            }
+            if (count === 2 && iToUse) {
+                placeO(iToUse)           
+                break; 
+            }   
+        }
+
+
+    } 
 
     const gridClicked = function(e){
         if (gameOn === true) {
@@ -119,16 +102,18 @@ document.addEventListener('DOMContentLoaded', () => {
                 playerMove[index] = currentPlayer;
                 e.target.innerText = currentPlayer;
                 if(winningCheck() === true){
-                    addScore(currentPlayer) 
                     displayWinnerOrDraw(currentPlayer);
                 } else if (playerMove.includes('')===false) {
                     displayWinnerOrDraw();  
                 } else {
                     if (computer === 'O') {                        
                         gameOn = false;
-                        placeO();                        
+                        checkAndPlaceO(); 
+                        gameOn = true;
+                        currentPlayer = 'X';  
+                        console.log(gameOn+'  '+playerMove)                 
                     } else {
-                        currentPlayer = currentPlayer === playerX ? playerO : playerX
+                        currentPlayer = currentPlayer === 'X'? 'O' : 'X';
                     }                    
                 }                            
             }
@@ -153,7 +138,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const clearGrid = () => {
         displayResult.style.zIndex = '-1';
-        grids.forEach(grid => {
+        document.querySelectorAll('#grid>div').forEach(grid => {
             grid.innerHTML = '';
         })
         playerMove =['','','','','','','','','']
@@ -168,12 +153,13 @@ document.addEventListener('DOMContentLoaded', () => {
     })
 
     
-
     playAgainBtn.addEventListener('click', ()=>{
         gameOn = true;
         clearGrid();
+        document.querySelectorAll('#grid>div').forEach(grid => {
+            grid.addEventListener('click', gridClicked)
+          });
     })
-
 
     grids.forEach(grid => {
       grid.addEventListener('click', gridClicked)
