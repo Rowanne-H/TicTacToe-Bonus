@@ -54,8 +54,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     const placeO = (i) => {
-        console.log('place')
-        console.log(i)
         if (i == 0) {
             document.getElementById('0').innerHTML = 'O';
         } else if (i == 1) {
@@ -90,7 +88,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 document.getElementById('3').innerHTML = 'O';
                 break;
             case '4':
-                console.log('place4')
                 document.getElementById('4').innerHTML = 'O';
                 break;
             case '5':
@@ -273,7 +270,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 switchPlayer(currentPlayer)
             }
             gameOn = true;
-
         }, 500)
     })
 
