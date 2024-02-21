@@ -91,7 +91,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (playerMove[index] === '') {iToUse = index}             
             }
             if (count === 2 &&  iToUse != -1) {
-                console.log('2O'+iToUse)
                 placeO(iToUse);
                 displayWinnerOrDraw('O');  
                 checkAgain = false;        
@@ -102,7 +101,6 @@ document.addEventListener('DOMContentLoaded', () => {
         //if there are 2 'X', place O in the index of ''
         if (checkAgain === true) {
             for (let i=0; i<winningCombinations.length; i++) {
-                console.log(winningCombinations[i])
                 count = 0;
                 iToUse = -1;
                 for (let j=0; j< winningCombinations[i].length; j++) {
@@ -111,7 +109,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (playerMove[index] === '') {iToUse = index;}              
                 }
                 if (count === 2 && iToUse != -1) {
-                    console.log('2X'+iToUse)
                     placeO(iToUse)  
                     checkAgain = false;         
                     break; 
@@ -122,7 +119,6 @@ document.addEventListener('DOMContentLoaded', () => {
         //if there are 1 'O' and no 'X', place O in the second index of ''
         if (checkAgain === true) {
             for (let i=0; i<winningCombinations.length; i++) {
-                console.log(winningCombinations[i])
                 count = 0;
                 iToUse = -1;
                 let countX = 0;
@@ -145,14 +141,13 @@ document.addEventListener('DOMContentLoaded', () => {
             if (playerMove[4] === '') {iToUse = 4} else {
                 iToUse = playerMove.indexOf('');
             }    
-            placeO(iToUse);
+            placeO(iToUse); 
+        }
+        if(playerMove.includes('') === false) {
+            displayWinnerOrDraw(); 
         } 
 
         gameOn = true;
-
-        if(playerMove.includes('')===false) {
-            displayWinnerOrDraw(); 
-        }
         
         if(displayResult.style.zIndex === '1') {
             currentPlayer = 'O';
@@ -197,13 +192,13 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
     
-
     onePlayerBtn.addEventListener('click', ()=>{
         if (gameOn === false && computer === false) {
             gameOn = true;
             computer = 'O';
             player2.innerHTML = 'Computer  ';
             player1.style.color = 'green';
+            onePlayerBtn.style.color = 'gray';
         } 
     })
 
@@ -211,6 +206,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (gameOn === false && computer === false) {
             gameOn = true;
             player1.style.color = 'green';
+            twoPlayerBtn.style.color = 'gray';
         } 
         
     })
@@ -227,6 +223,10 @@ document.addEventListener('DOMContentLoaded', () => {
         clearGrid();
         scoreDisplay1.innerHTML = 0;
         scoreDisplay2.innerHTML = 0;
+        onePlayerBtn.style.color = '';
+        twoPlayerBtn.style.color = '';
+        player1.style.color = '';
+        player2.style.color = '';
         gameOn = false;
         computer = false;
     })
