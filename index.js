@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
         [2,4,6]
     ]
 
-    const gridClickEvent = () => {
+    const startGridClickEvent = () => {
         document.querySelectorAll('#grid>div').forEach(grid => {
             grid.addEventListener('click', gridClicked)
         });
@@ -72,7 +72,7 @@ document.addEventListener('DOMContentLoaded', () => {
         playerMove[i] = 'O';
         grid.innerHTML = '';
         grid.innerHTML = placeOHTML(playerMove);
-        gridClickEvent();
+        startGridClickEvent();
         console.log(playerMove)
         console.log('placeO')
     }
@@ -216,11 +216,11 @@ document.addEventListener('DOMContentLoaded', () => {
         if (currentPlayer === 'O' && computer === 'O') {
             setTimeout(() =>placeO, 500, 4)
         }
-        gridClickEvent();
+        startGridClickEvent();
     })
 
     
 
-    gridClickEvent()
+    startGridClickEvent();
 })
 
