@@ -137,6 +137,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 }   
             }
         }
+
+        //if there is no 'O', place O in the second index of ''
+        if (checkAgain === true) {
+            iToUse = playerMove.indexOf('');
+            placeO(iToUse);
+        }
         
 
         
