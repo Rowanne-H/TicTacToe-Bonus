@@ -198,8 +198,8 @@ document.addEventListener('DOMContentLoaded', () => {
         if (gameOn === false && computer === false) {
             gameOn = true;
             computer = 'O';
-            player2.innerHTML = 'Computer  ';
             player1.style.color = 'green';
+            player2.innerHTML = 'Computer  ';            
             onePlayerBtn.style.color = 'gray';
         }
     })
@@ -210,7 +210,6 @@ document.addEventListener('DOMContentLoaded', () => {
             player1.style.color = 'green';
             twoPlayerBtn.style.color = 'gray';
         }
-
     })
 
     const clearGrid = () => {
@@ -233,20 +232,17 @@ document.addEventListener('DOMContentLoaded', () => {
         computer = false;
     })
 
-
     playAgainBtn.addEventListener('click', () => {
         clearGrid();
         setTimeout(() => {
             if (currentPlayer === 'O' && computer === 'O') {
                 placeO(4);
-                switchPlayer(currentPlayer);
+                switchPlayer(currentPlayer)
             }
             gameOn = true;
             startGridClickEvent();
         }, 500)
     })
-
-
 
     startGridClickEvent();
 })
