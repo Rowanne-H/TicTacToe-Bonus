@@ -4,7 +4,6 @@ document.addEventListener('DOMContentLoaded', () => {
     let resetBtn = document.querySelector('#reset');
     let playAgainBtn = document.querySelector('#playAgain');
     let grid = document.querySelector('#grid');
-    let grids = document.querySelectorAll('#grid>div');
     let scoreDisplay1 = document.querySelector('#player1-score');
     let scoreDisplay2 = document.querySelector('#player2-score');
     let player2 = document.querySelector('#player2');
@@ -44,6 +43,12 @@ document.addEventListener('DOMContentLoaded', () => {
         [2,4,6]
     ]
 
+    const gridClickEvent = () => {
+        document.querySelectorAll('#grid>div').forEach(grid => {
+            grid.addEventListener('click', gridClicked)
+        });
+    }
+
     const winningCheck = function (){
         for (const condition of winningCombinations){
             let [a,b,c] = condition
@@ -67,14 +72,12 @@ document.addEventListener('DOMContentLoaded', () => {
         playerMove[i] = 'O';
         grid.innerHTML = '';
         grid.innerHTML = placeOHTML(playerMove);
-        document.querySelectorAll('#grid>div').forEach(grid => {
-            grid.addEventListener('click', gridClicked)
-        });
+        gridClickEvent();
         console.log(playerMove)
         console.log('placeO')
     }
 
-    const checkAndPlaceO = () => {
+    const computerTurn = () => {
         let count;
         let iToUse;
         let checkAgain = true;       
@@ -142,8 +145,8 @@ document.addEventListener('DOMContentLoaded', () => {
             iToUse = playerMove.indexOf('');
             placeO(iToUse);
         }  
+
         gameOn = true;
-        
         if(displayResult.style.zIndex === '1') {
             currentPlayer = 'O';
         } else {
@@ -164,7 +167,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 } else {
                     if (computer === 'O') {                        
                         gameOn = false;
-                        checkAndPlaceO(); 
+                        computerTurn(); 
                         console.log(gameOn+'  '+playerMove)                 
                     } else {
                         currentPlayer = currentPlayer === 'X'? 'O' : 'X';
@@ -210,13 +213,14 @@ document.addEventListener('DOMContentLoaded', () => {
     playAgainBtn.addEventListener('click', ()=>{
         gameOn = true;
         clearGrid();
-        document.querySelectorAll('#grid>div').forEach(grid => {
-            grid.addEventListener('click', gridClicked)
-        });
+        if (currentPlayer === 'O' && computer === 'O') {
+            setTimeout(() =>placeO, 500, 4)
+        }
+        gridClickEvent();
     })
 
-    grids.forEach(grid => {
-      grid.addEventListener('click', gridClicked)
-    })
+    
+
+    gridClickEvent()
 })
 
