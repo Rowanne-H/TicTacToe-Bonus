@@ -33,7 +33,6 @@ document.addEventListener('DOMContentLoaded', () => {
   
     let playerMove = ['','','','','','','','','']
     let currentPlayer = 'X';
-    
     let winningCombinations = [
         [0,1,2],
         [3,4,5],
@@ -56,7 +55,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const placeOHTML = (playerMove) => {
         let text = '';
-        // loop the first three combinations [012][345][678] to cover all grids
         for (let i=0; i<9; i++) {
             text += `
             <div id="${i}">${playerMove[i]}</div>
@@ -77,7 +75,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const checkAndPlaceO = () => {
 
-        
+        //if there are 2 'O', place O in the index of ''
+        for (let i=0; i<winningCombinations.length; i++) {
+            let count = 0;
+            let iToUse;
+            for (let j=0; j< winningCombinations[i].length; j++) {
+                let index = winningCombinations[i][j];
+                if (playerMove[index] === 'O') {count++}
+                if (playerMove[index] === '') {iToUse = index;}              
+            }
+            if (count === 2 && iToUse) {
+                placeO(iToUse);
+                displayWinnerOrDraw('O');          
+                break; 
+            }   
+        }
+
         //if there are 2 'X', place O in the index of ''
         for (let i=0; i<winningCombinations.length; i++) {
             let count = 0;
@@ -92,6 +105,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 break; 
             }   
         }
+
+        
 
 
     } 
