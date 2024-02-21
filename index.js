@@ -33,6 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
   
     let playerMove = ['','','','','','','','','']
     let currentPlayer = 'X';
+    
     let winningCombinations = [
         [0,1,2],
         [3,4,5],
