@@ -44,12 +44,6 @@ document.addEventListener('DOMContentLoaded', () => {
         [2, 4, 6]
     ]
 
-    const startGridClickEvent = () => {
-        document.querySelectorAll('#grid>div').forEach(grid => {
-            grid.addEventListener('click', gridClicked)
-        });
-    }
-
     const winningCheck = function () {
         for (const condition of winningCombinations) {
             let [a, b, c] = condition
@@ -59,22 +53,60 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    
-
     const placeO = (i) => {
-        const placeOHTML = (playerMove) => {
-            let text = '';
-            for (let i = 0; i < 9; i++) {
-                text += `
-                <div id="${i}">${playerMove[i]}</div>
-                `
-            }
-            return text;
+        console.log('place')
+        console.log(i)
+        if (i == 0) {
+            document.getElementById('0').innerHTML = 'O';
+        } else if (i == 1) {
+            document.getElementById('1').innerHTML = 'O';
+        } else if (i == 2) {
+            document.getElementById('2').innerHTML = 'O';
+        } else if (i == 3) {
+            document.getElementById('3').innerHTML = 'O';
+        } else if (i == 4) {
+            document.getElementById('4').innerHTML = 'O';
+        } else if (i == 5) {
+            document.getElementById('5').innerHTML = 'O';
+        } else if (i == 6) {
+            document.getElementById('6').innerHTML = 'O';
+        } else if (i == 7) {
+            document.getElementById('7').innerHTML = 'O';
+        } else {
+            document.getElementById('8').innerHTML = 'O';
         }
+        /* why this switch is not working
+        switch (i) {
+            case '0':
+                document.getElementById('0').innerHTML = 'O';
+                break;
+            case '1':
+                document.getElementById('1').innerHTML = 'O';
+                break;
+            case '2':
+                document.getElementById('2').innerHTML = 'O';
+                break;
+            case '3':
+                document.getElementById('3').innerHTML = 'O';
+                break;
+            case '4':
+                console.log('place4')
+                document.getElementById('4').innerHTML = 'O';
+                break;
+            case '5':
+                document.getElementById('5').innerHTML = 'O';
+                break;
+            case '6':
+                document.getElementById('6').innerHTML = 'O';
+                break;
+            case '7':
+                document.getElementById('7').innerHTML = 'O';
+                break;
+            case '8':
+                document.getElementById('8').innerHTML = 'O';
+        }
+        */
         playerMove[i] = 'O';
-        grid.innerHTML = '';
-        grid.innerHTML = placeOHTML(playerMove);
-        startGridClickEvent();
     }
 
     const switchPlayer = (player) => {
@@ -241,10 +273,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 switchPlayer(currentPlayer)
             }
             gameOn = true;
-            startGridClickEvent();
+
         }, 500)
     })
 
-    startGridClickEvent();
+    document.querySelectorAll('#grid>div').forEach(grid => {
+        grid.addEventListener('click', gridClicked)
+    });
 })
 
