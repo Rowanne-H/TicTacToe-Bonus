@@ -70,47 +70,74 @@ document.addEventListener('DOMContentLoaded', () => {
         document.querySelectorAll('#grid>div').forEach(grid => {
             grid.addEventListener('click', gridClicked)
         });
+        console.log(playerMove)
         console.log('placeO')
     }
 
     const checkAndPlaceO = () => {
         let count;
         let iToUse;
+        let checkAgain = true;       
 
 
         //if there are 2 'O', place O in the index of ''
         for (let i=0; i<winningCombinations.length; i++) {
             count = 0;
-                iToUse = -1;
+            iToUse = -1;
             for (let j=0; j< winningCombinations[i].length; j++) {
                 let index = winningCombinations[i][j];
                 if (playerMove[index] === 'O') {count++}
                 if (playerMove[index] === '') {iToUse = index}             
             }
-            console.log(count+ '   '+iToUse)
-            if (count === 2 && iToUse != false) {
+            if (count === 2 &&  iToUse != -1) {
+                console.log('2O'+iToUse)
                 placeO(iToUse);
-                displayWinnerOrDraw('O');          
+                displayWinnerOrDraw('O');  
+                checkAgain = false;        
                 break; 
             }   
         }
 
         //if there are 2 'X', place O in the index of ''
-        for (let i=0; i<winningCombinations.length; i++) {
-            console.log(winningCombinations[i])
-            count = 0;
-            iToUse = -1;
-            for (let j=0; j< winningCombinations[i].length; j++) {
-                let index = winningCombinations[i][j];
-                if (playerMove[index] === 'X') {count++}
-                if (playerMove[index] === '') {iToUse = index;} 
-                console.log('inside'+count+ '   '+iToUse)              
+        if (checkAgain === true) {
+            for (let i=0; i<winningCombinations.length; i++) {
+                console.log(winningCombinations[i])
+                count = 0;
+                iToUse = -1;
+                for (let j=0; j< winningCombinations[i].length; j++) {
+                    let index = winningCombinations[i][j];
+                    if (playerMove[index] === 'X') {count++}
+                    if (playerMove[index] === '') {iToUse = index;}              
+                }
+                if (count === 2 && iToUse != -1) {
+                    console.log('2X'+iToUse)
+                    placeO(iToUse)  
+                    checkAgain = false;         
+                    break; 
+                }   
             }
-            if (count === 2 && iToUse != -1) {
-                placeO(iToUse)           
-                break; 
-            }   
         }
+
+        //if there are 1 'O', place O in the second index of ''
+        if (checkAgain === true) {
+            for (let i=0; i<winningCombinations.length; i++) {
+                console.log(winningCombinations[i])
+                count = 0;
+                iToUse = -1;
+                for (let j=0; j< winningCombinations[i].length; j++) {
+                    let index = winningCombinations[i][j];
+                    if (playerMove[index] === 'O') {count++}
+                    if (playerMove[index] === '') {iToUse = index;}              
+                }
+                if (count === 1 && iToUse != -1) {
+                    console.log('1X'+iToUse);
+                    placeO(iToUse); 
+                    checkAgain = false;          
+                    break; 
+                }   
+            }
+        }
+        
 
         
 
