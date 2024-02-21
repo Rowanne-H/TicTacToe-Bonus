@@ -59,17 +59,18 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    const placeOHTML = (playerMove) => {
-        let text = '';
-        for (let i = 0; i < 9; i++) {
-            text += `
-            <div id="${i}">${playerMove[i]}</div>
-            `
-        }
-        return text;
-    }
+    
 
     const placeO = (i) => {
+        const placeOHTML = (playerMove) => {
+            let text = '';
+            for (let i = 0; i < 9; i++) {
+                text += `
+                <div id="${i}">${playerMove[i]}</div>
+                `
+            }
+            return text;
+        }
         playerMove[i] = 'O';
         grid.innerHTML = '';
         grid.innerHTML = placeOHTML(playerMove);
@@ -150,8 +151,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         //if there is no 'O', place O in the middle or if middle has 'X', place O in the first index of ''
         if (checkAgain === true) {
-            if (playerMove[4] === '') { 
-                iToUse = 4; 
+            if (playerMove[4] === '') {
+                iToUse = 4;
             } else {
                 iToUse = playerMove.indexOf('');
             }
@@ -199,7 +200,7 @@ document.addEventListener('DOMContentLoaded', () => {
             gameOn = true;
             computer = 'O';
             player1.style.color = 'green';
-            player2.innerHTML = 'Computer  ';            
+            player2.innerHTML = 'Computer  ';
             onePlayerBtn.style.color = 'gray';
         }
     })
